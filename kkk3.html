@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Moving motion</title>
+    <style>
+        body{
+            background-color: gray;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        h1{
+            text-align: center;
+            color: white;
+        }
+        #drop1, #drop2{
+            width: 480px;
+            height: 540px;
+        }
+    </style>
+    <script src="canvas drag.js"></script>
+</head>
+<body>
+    <h1>Motion mover with Canvas</h1>
+    <div style="border: 1px solid black; border-radius: 8px;" ondrop="dropimage(event)" ondragover="allowThisToDrop(event)" id="drop1"> 
+        <img src="Picture5.jpg" alt="Sport" width="480" height="540" draggable="true" id="theimage" ondragstart="dragimage(event)">
+    </div>
+
+    <div style="border: 1px solid black; border-radius: 8px;" ondrop="dropimage(event)" ondragover="allowThisToDrop(event)" id="drop2"></div>
+
+   
+    <h3>Location finder</h3>
+    <button id="gpsbtn">Get location</button>
+    <p>Your location is <span id="gpscoords"></span></p>
+    <script>
+        let loactionText = document.querySelector('#gpscoords')
+        document.querySelector('#gpsbtn').addEventListener('click', function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(workingCoordinate, showError);
+             } else {
+                loactionText.innerHTML = 'Geolocation function is not supported!';
+             }
+        });
+
+        function workingCoordinate(position){
+            loactionText.innerHTML = '<br>Latitude: ' + position.coords.latitude + '<br> Longitude: ' + position.coords.longitude
+        }
+
+        function showError(error) {
+            loactionText.innerHTML = 'Error getting location: ' + error.message;
+        }
+    </script>
+</body>
+</html>
